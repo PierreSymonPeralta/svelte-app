@@ -202,9 +202,23 @@
     isAddingNewCard = !isAddingNewCard;
   }
 
+  function handleDragOver(evt) {
+    evt.preventDefault();
+  }
+
+  function handleDrop(evt) {
+    evt.preventDefault();
+    const json = evt.dataTransfer.getData("text/plain");
+    const card = JSON.parse(json);
+    card.columnId = columnId;
+    DataStore.updateCard(card);
+  }
+
 </script>
 
-<div class="column">
+<div id={columnId} class="column" 
+  ondragover="return false"
+  on:drop={handleDrop}>
   <div class="column-header">
     {#if editMode}
       <input id="column-name" type="text" bind:value={newTitle} on:keydown={handleKeypress}/>

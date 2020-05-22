@@ -97,11 +97,15 @@
     }
   }
 
+  function handleDragStart(evt) {
+    evt.dataTransfer.setData('text/plain', JSON.stringify(data));
+  }
+
 </script>
 
 
 
-<div class="card">
+<div class="card" draggable="true" on:dragstart={handleDragStart} id={data.id}>
   {#if !editMode }
     <div class="card-title">
       {data.title}
